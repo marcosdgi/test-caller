@@ -17,7 +17,6 @@ function generateTokenForUser(userId: string): string {
 const token = generateTokenForUser(userId);
 const callId = "my-call-id";
 const user: User = { id: userId };
-
 const client = new StreamVideoClient({ apiKey, user, token });
 const call = client.call("default", callId);
 call.join({ create: true });
