@@ -1,18 +1,23 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
-const Layout = () => {
+const AuthLayout = () => {
     const insets = useSafeAreaInsets()
     return (
-        <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
-            <Stack>
-                <Stack.Screen name='index' />
-            </Stack>
-        </View>
+        <>
+            <StatusBar />
+            <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom, flex: 1 }}>
+                <Stack>
+                    <Stack.Screen name='login' options={{headerShown:false}}/>
+                </Stack>
+            </View>
+
+        </>
     );
 };
 
 
-export default Layout;
+export default AuthLayout;
