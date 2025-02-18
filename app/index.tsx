@@ -1,42 +1,25 @@
-import {
-    StreamCall,
-    StreamVideo,
-    StreamVideoClient,
-    User,
-} from "@stream-io/video-react-native-sdk";
-import { useEffect, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { StatusBar, View, Text } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const apiKey = "9wxcr4vncmfn";
-const userId = Math.random().toString(36).substring(2, 15);
-function generateTokenForUser(userId: string): string {
-    // This is a placeholder implementation. Replace with your actual token generation logic.
-    return `token-${userId}-${new Date().getTime()}`;
-}
 
-const token = generateTokenForUser(userId);
-const callId = "my-call-id";
-const user: User = { id: userId };
-const client = new StreamVideoClient({ apiKey, user, token });
-const call = client.call("default", callId);
-call.join({ create: true });
-export default function App() {
-    const [isCalling, setIsCalling] = useState<boolean>(false)
-    return (
-        <View>
-            {isCalling && (
-                <StreamVideo client={client}>
-                    <StreamCall call={call}>
-                        <View>
-                            <Text>Callig</Text>
-                        </View>
-                    </StreamCall>
-                </StreamVideo>)}
-            <Pressable className="bg-blue-300 p-3z" onPress={() => setIsCalling(true)}>
-                <Text>
-                    Hello
-                </Text>
-            </Pressable>
-        </View>
-    );
+export default function SplashScreen() {
+    const insets = useSafeAreaInsets();
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+
+    if (isLoading) {
+        return (
+            <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }} className="h-full flex flex-col">
+                <StatusBar />
+                <View className="flex flex-1 flex-col justify-center items-center h-[100%]">
+                    <Text className="bg-purple-700 rounded p-4 text-white text-3xl">LISN</Text>
+                </View>
+            </View>
+        );
+    }
+
+
 }

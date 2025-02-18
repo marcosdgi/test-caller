@@ -1,13 +1,10 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot, Stack } from 'expo-router';
+import { router, Slot, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+import "../global.css";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -18,6 +15,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      router.push('/screens/(auth)')
     }
   }, [loaded]);
 
@@ -28,9 +26,7 @@ export default function RootLayout() {
   return (
     <>
       <StatusBar style="auto" />
-      <Stack>
-        <Slot />
-      </Stack >
+      <Slot />
     </>
   );
 }

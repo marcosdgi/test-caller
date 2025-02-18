@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 const LoginScreen: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
     const handleLogin = () => {
         console.log('Email:', email);
