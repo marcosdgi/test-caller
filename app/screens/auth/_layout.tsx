@@ -11,10 +11,8 @@ const AuthLayout = () => {
             <StatusBar />
             <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom, flex: 1 }}>
                 <Stack>
-                    <Stack.Screen name='login' options={{headerShown:false}}/>
-                </Stack>
-                <Stack>
-                    <Stack.Screen name='register' options={{headerShown:false}}/>
+                    <Stack.Screen name='login' options={{ headerShown: false }} />
+                    <Stack.Screen name='register' options={{ headerShown: false }} />
                 </Stack>
             </View>
 

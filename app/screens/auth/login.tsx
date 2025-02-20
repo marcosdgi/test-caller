@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import { IconDownload, IconPlus } from '@tabler/icons-react-native'
 import { useUser } from '@/context/UserContext';
 import { UserRespository } from '@/repository/auth/userRepository';
@@ -31,6 +31,7 @@ const LoginScreen: React.FC = () => {
                 id: response.user.id,
                 name: response.user.name,
             })
+            Alert.alert("Correcto", "Inicio de sesion exitoso")
         } catch (error) {
             setError('Error al iniciar sesión')
             console.log(error)
