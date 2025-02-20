@@ -13,6 +13,9 @@ const AuthLayout = () => {
                 <Stack>
                     <Stack.Screen name='login' options={{headerShown:false}}/>
                 </Stack>
+                <Stack>
+                    <Stack.Screen name='register' options={{headerShown:false}}/>
+                </Stack>
             </View>
 
         </>
