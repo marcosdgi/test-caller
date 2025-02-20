@@ -1,5 +1,5 @@
 import { request } from "../request";
-import { LoginRequest, LoginResponse, RegisterRequest, User } from "@/types/auth";
+import { ILoginRequest, ILoginResponse, IRegisterRequest, IUser } from "@/types/auth";
 
 export class UserRespository {
     private baseUrl: string;
@@ -8,28 +8,28 @@ export class UserRespository {
         this.baseUrl = baseUrl;
     }
 
-    async login(loginFormData: LoginRequest): Promise<LoginResponse> {
-        return request<LoginResponse>(`${this.baseUrl}/auth/login`, {
+    async login(loginFormData: ILoginRequest): Promise<ILoginResponse> {
+        return request<ILoginResponse>(`${this.baseUrl}/auth/login`, {
             body: JSON.stringify(loginFormData),
             method: 'POST'
         })
     }
 
-    async register(registerFormData: RegisterRequest): Promise<any> {
-        return request<any>(`${this.baseUrl}/auth/register`, {
+    async register(registerFormData:IRegisterRequest): Promise<IUser> {
+        return request<IUser>(`${this.baseUrl}/auth/register`, {
             body: JSON.stringify(registerFormData),
             method: 'POST'
         })
     }
 
-    async users(): Promise<User[]> {
-        return request<User[]>(`${this.baseUrl}/auth/users`, {
+    async users(): Promise<IUser[]> {
+        return request<IUser[]>(`${this.baseUrl}/auth/users`, {
             method: 'GET'
         })
     }
 
-    async user(id: string): Promise<User> {
-        return request<User>(`${this.baseUrl}/auth/userById/${id}`, {
+    async user(id: string): Promise<IUser> {
+        return request<IUser>(`${this.baseUrl}/auth/userById/${id}`, {
             method: 'GET'
         })
     }

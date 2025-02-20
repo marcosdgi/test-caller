@@ -1,26 +1,26 @@
 import { UserRespository } from "@/repository/auth/userRepository";
-import { LoginRequest, LoginResponse, RegisterRequest, User } from "@/types/auth";
+import { ILoginRequest, ILoginResponse, IRegisterRequest, IUser } from "@/types/auth";
 
-export class TaskService {
+export class AuthService {
     private userRepository: UserRespository;
 
     constructor(userService: UserRespository) {
         this.userRepository = userService;
     }
 
-    async login(formLoginData: LoginRequest): Promise<LoginResponse> {
+    async login(formLoginData: ILoginRequest): Promise<ILoginResponse> {
         return await this.userRepository.login(formLoginData)
     }
 
-    async register(formSignupData: RegisterRequest): Promise<any> {
+    async register(formSignupData: IRegisterRequest): Promise<IUser> {
         return await this.userRepository.register(formSignupData)
     }
 
-    async users(): Promise<User[]> {
+    async users(): Promise<IUser[]> {
         return await this.userRepository.users()
     }
 
-    async user(id: string): Promise<User> {
+    async user(id: string): Promise<IUser> {
         return await this.userRepository.user(id)
     }
 }
