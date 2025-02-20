@@ -28,9 +28,8 @@ const LoginScreen: React.FC = () => {
             const response = await userService.login(loginFormData)
             setToken(response.token)
             useUser().setUser({
-                email: email,
-                id: response.id,
-                name: ''
+                id: response.user.id,
+                name: response.user.name,
             })
         } catch (error) {
             setError('Error al iniciar sesión')

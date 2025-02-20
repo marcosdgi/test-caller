@@ -1,15 +1,15 @@
-import { User } from '@/types/auth';
+import { IUser } from '@/types/auth';
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 interface UserContextType {
-    user: User | null;
-    setUser: (user: User | null) => void;
+    user: IUser | null;
+    setUser: (user: IUser | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<IUser | null>(null);
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
