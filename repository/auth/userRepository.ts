@@ -11,11 +11,14 @@ export class UserRespository {
     async login(loginFormData: ILoginRequest): Promise<ILoginResponse> {
         return request<ILoginResponse>(`${this.baseUrl}/auth/login`, {
             body: JSON.stringify(loginFormData),
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
     }
 
-    async register(registerFormData:IRegisterRequest): Promise<IUser> {
+    async register(registerFormData: IRegisterRequest): Promise<IUser> {
         return request<IUser>(`${this.baseUrl}/auth/register`, {
             body: JSON.stringify(registerFormData),
             method: 'POST'

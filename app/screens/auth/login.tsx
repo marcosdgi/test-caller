@@ -6,10 +6,10 @@ import { UserRespository } from '@/repository/auth/userRepository';
 import { AuthService } from '@/services/auth/authService';
 import { ILoginRequest } from '@/types/auth';
 
-const repository = new UserRespository(process.env.EXPO_PUBLIC_API_URL as string)
-const userService = new AuthService(repository)
 
 const LoginScreen: React.FC = () => {
+    const repository = new UserRespository(process.env.EXPO_PUBLIC_API_URL as string)
+    const userService = new AuthService(repository)
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
