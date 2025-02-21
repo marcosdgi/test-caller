@@ -5,7 +5,8 @@ export interface ILoginRequest {
 
 export interface ILoginResponse {
     token: string;
-    user: IUser;
+    id: string;
+    name: string;
 }
 
 export interface IRegisterRequest {

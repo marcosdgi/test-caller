@@ -15,7 +15,7 @@ const LoginScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
-    const [token, setToken] = useState<string>('');
+    const { token, setToken, user, setUser } = useUser();
 
     const handleLogin = async () => {
         if (!email.trim()) setError('El correo electrónico es obligatorio');
@@ -27,10 +27,11 @@ const LoginScreen: React.FC = () => {
         try {
             const response = await userService.login(loginFormData)
             setToken(response.token)
-            useUser().setUser({
-                id: response.user.id,
-                name: response.user.name,
+            setUser({
+                id: response.id,
+                name: response.name,
             })
+
             Alert.alert("Correcto", "Inicio de sesion exitoso")
         } catch (error) {
             setError('Error al iniciar sesión')

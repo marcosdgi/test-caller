@@ -1,42 +1,67 @@
+import { useUser } from "@/context/UserContext";
 import {
-    StreamCall,
-    StreamVideo,
-    StreamVideoClient,
-    User,
+  StreamCall,
+  StreamVideo,
+  StreamVideoClient,
+  User,
 } from "@stream-io/video-react-native-sdk";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 
-const apiKey = "9wxcr4vncmfn";
-const userId = Math.random().toString(36).substring(2, 15);
-function generateTokenForUser(userId: string): string {
-    // This is a placeholder implementation. Replace with your actual token generation logic.
-    return `token-${userId}-${new Date().getTime()}`;
-}
-
-const token = generateTokenForUser(userId);
-const callId = "my-call-id";
-const user: User = { id: userId };
-const client = new StreamVideoClient({ apiKey, user, token });
-const call = client.call("default", callId);
-call.join({ create: true });
 export default function Caller() {
-    const [isCalling, setIsCalling] = useState<boolean>(false)
-    return (
-        <View>
-            {isCalling && (
-                <StreamVideo client={client}>
-                    <StreamCall call={call}>
-                        <View>
-                            <Text>Callig</Text>
-                        </View>
-                    </StreamCall>
-                </StreamVideo>)}
-            <Pressable className="bg-blue-300 p-3z" onPress={() => setIsCalling(true)}>
-                <Text>
-                    Hello
-                </Text>
-            </Pressable>
-        </View>
-    );
+  const apiKey = process.env.EXPO_PUBLIC_STREAM_API_KEY as string;
+  const router = useRouter();
+  const { token, user } = useUser();
+  const [client, setClient] = useState<StreamVideoClient | null>(null);
+  const [call, setCall] = useState<any>(null);
+  const [isCalling, setIsCalling] = useState<boolean>(false);
+
+  if (!user || !token) {
+    router.replace("/screens/auth/login");
+    return null;
+  }
+
+  useEffect(() => {
+    const userId = { id: user.id } as User;
+    const videoClient = new StreamVideoClient({
+      apiKey,
+      user: userId,
+      token,
+    });
+    setClient(videoClient);
+
+    const callInstance = videoClient.call("default", "my-call-id");
+    setCall(callInstance);
+
+    return () => {
+      videoClient.disconnectUser();
+    };
+  }, [user.id, token]);
+
+  const handleStartCall = async () => {
+    if (call) {
+      await call.join({ create: true });
+      setIsCalling(true);
+    }
+  };
+
+  if (!client || !call) return null;
+
+  return (
+    <View>
+      {isCalling && (
+        <StreamVideo client={client}>
+          <StreamCall call={call}>
+            <View>
+              <Text>Calling</Text>
+            </View>
+          </StreamCall>
+        </StreamVideo>
+      )}
+      <Pressable className="bg-blue-300 p-3" onPress={handleStartCall}>
+        <Text>Start Call</Text>
+      </Pressable>
+    </View>
+  );
 }
